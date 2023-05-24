@@ -21,7 +21,7 @@ Each directory typically includes the following files:
 - `generator.py`: Contains the implementation of the Generator in GAN model architecture.
 - `discriminator.py`: Contains the implementation of the Discriminator in GAN model architecture.
 - `train.py`: Implements the training loop for the GAN model.
-- `utils.py`: Provides utility functions for data loading, preprocessing, and evaluation.
+- `utils.py`: Provides utility functions for weight initialization.
 - `README.md`: Includes detailed instructions on how to run and use the specific GAN model.
 
 ## Getting Started
