@@ -59,7 +59,7 @@ DCGAN (Deep Convolutional Generative Adversarial Networks) is a type of Generati
 
 The official research paper on DCGAN titled "Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks" by Alec Radford, Luke Metz, and Soumith Chintala can be found at the following link: [DCGAN Research Paper](https://arxiv.org/abs/1511.06434)
 
-![DCGAN Animation](https://github.com/yasho191/GANs/assets/54347711/4d9e5b1f-3859-4933-af94-b1b9c42b0639)
+https://github.com/yasho191/GANs/assets/54347711/4d9e5b1f-3859-4933-af94-b1b9c42b0639
 
 ## CGAN
 
