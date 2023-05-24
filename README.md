@@ -32,6 +32,18 @@ To get started, clone this repository to your local machine:
 git clone https://github.com/yasho191/GANs.git
 ```
 
+### Dependencies
+
+The following dependencies are required to run the GAN implementations:
+
+```bash
+- Python 3.9 or Above
+- PyTorch
+- Torchvision
+- NumPy
+- Matplotlib
+```
+
 Make sure you have PyTorch and the required dependencies installed. You can install the dependencies using the following command:
 
 ```bash
@@ -45,7 +57,7 @@ Then, navigate to the directory of the GAN model you want to explore and follow 
 Navigate to the folder of the model you want to train and run the train.py file
 
 ```bash
-cd DCGAN
+cd GAN_Name
 python3 train.py -d [DATA_DIR] -m [MODEL_PATH] -a [ANIMATION_PATH] -t [TRAINING_CURVE_PATH]
 ```
 
@@ -71,12 +83,15 @@ Conditional Generative Adversarial Networks (CGANs) are an extension of the orig
 
 The CGAN framework introduces the concept of "conditional" in the GAN architecture by concatenating the conditioning information with the input noise vector for the generator and with the input real or generated samples for the discriminator. This conditioning information acts as additional input to guide the generation process and improve the quality and control of the generated samples.
 
-The original research paper, "Conditional Generative Adversarial Nets" by Mehdi Mirza and Simon Osindero can be found at the following link: [DCGAN Research Paper](https://arxiv.org/abs/1411.1784)
+The original research paper, "Conditional Generative Adversarial Nets" by Mehdi Mirza and Simon Osindero can be found at the following link: [CGAN Research Paper](https://arxiv.org/abs/1411.1784)
 
 ## Upcoming GANS
 
-1. WGAN
-2. StyleGAN
+1. Wasserstein GAN (WGAN)
+2. WGAN with Gradient Penalty (WGAN-GP)
+3. CycleGAN
+4. InfoGAN
+5. Style GAN
 
 ## License
 
