@@ -47,7 +47,7 @@ fake_label = 0.0
 classes = 5
 # Monitor Progress
 progress = list()
-fixed_noise = torch.randn(batch_size, noise_dim, 1, 1, device=device)
+fixed_noise = torch.randn(batch_size, noise_dim, device=device)
 fixed_labels = torch.randint(0, classes, (batch_size, ), device=device)
 
 
@@ -76,7 +76,7 @@ dataloader = data.DataLoader(
 )
 
 
-criterion = nn.BCELoss()
+criterion = nn.MSELoss()
 
 disc_optimizer = optim.Adam(disc_net.parameters(), lr=lr, betas=(beta1, 0.999))
 gen_optimizer = optim.Adam(gen_net.parameters(), lr=lr, betas=(beta1, 0.999))
@@ -109,7 +109,7 @@ for epoch in range(num_epochs):
         disc_err_real = criterion(output, label)
         disc_err_real.backward()
 
-        noise = torch.randn(num_images, noise_dim, 1, 1, device=device)
+        noise = torch.randn(num_images, noise_dim, device=device)
         # Conditional Noise
         noise_labels = torch.randint(0, classes, (num_images, ), device=device)
         fake = gen_net(noise, noise_labels)

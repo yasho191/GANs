@@ -23,8 +23,9 @@ class Discriminator(nn.Module):
             conv_2,
             conv_3,
             conv_4,
-            nn.Conv2d(512, 1, (5, 5), 2, 1),
-            nn.Sigmoid(),
+            nn.Conv2d(512, 16, (3, 3), 1, 1),
+            nn.Flatten(),
+            nn.Linear(256, 1)
         )
 
     def conv_block(self, in_channels, out_channels):
