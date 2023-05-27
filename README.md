@@ -71,7 +71,7 @@ DCGAN (Deep Convolutional Generative Adversarial Networks) is a type of Generati
 
 The official research paper on DCGAN titled "Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks" by Alec Radford, Luke Metz, and Soumith Chintala can be found at the following link: [DCGAN Research Paper](https://arxiv.org/abs/1511.06434)
 
-**DCGAN Training Results: (Cartoon 100k Dataset was used for training)**
+**DCGAN Training Results: (Cartoon 100k Dataset was used for training) - 60 epochs**
 
 https://github.com/yasho191/GANs/assets/54347711/4d9e5b1f-3859-4933-af94-b1b9c42b0639
 
@@ -85,13 +85,25 @@ The CGAN framework introduces the concept of "conditional" in the GAN architectu
 
 The original research paper, "Conditional Generative Adversarial Nets" by Mehdi Mirza and Simon Osindero can be found at the following link: [CGAN Research Paper](https://arxiv.org/abs/1411.1784)
 
+> Training Output Pending
+## WGAN
+
+<img src="assets/images/WGAN.png"/>
+
+The main motivation behind WGAN is to address some of the challenges and limitations of the original GAN formulation, such as mode collapse, training instability, and difficulties in measuring the convergence of the generator and discriminator. WGAN introduces the Wasserstein distance (also known as Earth Mover's Distance) as a more informative metric for comparing probability distributions.
+
+The WGAN paper introduces additional techniques, such as weight clipping and gradient penalty, to enforce the Lipschitz constraint and improve training stability further.
+
+The original research paper, "Wasserstein GAN" by Martin Arjovsky, Soumith Chintala, Léon Bottou
+published in International Conference on Machine Learning (ICML), 2017 can be found here: [WGAN Research Paper](https://arxiv.org/abs/1701.07875)
+
+**WGAN Training Results: (Cartoon 100k Dataset was used for training) - 25 epochs**
 ## Upcoming GANS
 
-1. Wasserstein GAN (WGAN)
-2. WGAN with Gradient Penalty (WGAN-GP)
-3. CycleGAN
-4. InfoGAN
-5. Style GAN
+1. WGAN with Gradient Penalty (WGAN-GP)
+2. CycleGAN
+3. InfoGAN
+4. Style GAN
 
 ## License
 
