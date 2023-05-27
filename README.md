@@ -98,6 +98,9 @@ The original research paper, "Wasserstein GAN" by Martin Arjovsky, Soumith Chint
 published in International Conference on Machine Learning (ICML), 2017 can be found here: [WGAN Research Paper](https://arxiv.org/abs/1701.07875)
 
 **WGAN Training Results: (Cartoon 100k Dataset was used for training) - 25 epochs**
+
+https://github.com/yasho191/GANs/assets/54347711/76baa0c1-c0e7-4076-88ae-29df84d59d76
+
 ## Upcoming GANS
 
 1. WGAN with Gradient Penalty (WGAN-GP)
