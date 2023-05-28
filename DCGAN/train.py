@@ -90,28 +90,27 @@ iters = 0
 print("Starting Training Loop...")
 for epoch in range(num_epochs):
     for i, data in enumerate(dataloader, 0):
+        real_images = data[0].to(device)
+        num_images = real_images.size(0)
+
+        real_target = torch.ones(num_images,).to(device)
+        fake_target = torch.zeros(num_images,).to(device)
+
+        noise = torch.randn(num_images, noise_dim, 1, 1, device=device)
 
         # Training the discriminator
         # 1.a: Train Discriminator on Real Images
         # 1.b: Train Generator on Fake Images
         disc_net.zero_grad()
 
-        real_images = data[0].to(device)
-        num_images = real_images.size(0)
-        label = torch.full((num_images,), real_label, dtype=torch.float, device=device)
-
         output = disc_net(real_images).view(-1)
-
-        disc_err_real = criterion(output, label)
+        disc_err_real = criterion(output, real_target)
         disc_err_real.backward()
 
-        noise = torch.randn(num_images, noise_dim, 1, 1, device=device)
-        fake = gen_net(noise)
-        label.fill_(fake_label)
+        fake_images = gen_net(noise)
 
-        output = disc_net(fake.detach()).view(-1)
-
-        disc_err_fake = criterion(output, label)
+        output = disc_net(fake_images.detach()).view(-1)
+        disc_err_fake = criterion(output, fake_target)
         disc_err_fake.backward()
 
         disc_err = disc_err_real + disc_err_fake
@@ -123,12 +122,11 @@ for epoch in range(num_epochs):
         # 2. Get Discriminator Predictions on Fake Images
         # 3. Calculate loss
         gen_net.zero_grad()
-        label.fill_(real_label)
-        output = disc_net(fake).view(-1)
 
-        gen_err = criterion(output, label)
+        output = disc_net(fake_images).view(-1)
+
+        gen_err = criterion(output, real_target)
         gen_err.backward()
-
         gen_optimizer.step()
 
         # Training Update
