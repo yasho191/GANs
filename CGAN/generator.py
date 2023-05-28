@@ -8,17 +8,16 @@ class Generator(nn.Module):
         self.classes = classes
 
         self.embedding = nn.Sequential(
-            nn.Embedding(classes, 64),
-            nn.Unflatten(1, (1, 8, 8))
+            nn.Embedding(classes, 100),
+            nn.Linear(100, 8*8)
         )
 
         self.latent_vector = nn.Sequential(
-            nn.Linear(100, 4096),
-            nn.ReLU(inplace=True),
-            nn.Unflatten(1, (64, 8, 8))
+            nn.Linear(100, 512*8*8),
+            nn.LeakyReLU(0.2, inplace=True),
         )
 
-        upsample_1 = self.upsample_block(65, 256, 1)
+        upsample_1 = self.upsample_block(513, 256, 1)
         upsample_2 = self.upsample_block(256, 128, 1)
         upsample_3 = self.upsample_block(128, 64, 1)
 
@@ -38,8 +37,8 @@ class Generator(nn.Module):
         )
     
     def forward(self, x, label):
-        latent_vector = self.latent_vector(x)
-        label_embedding = self.embedding(label)
+        latent_vector = self.latent_vector(x).view(-1, 512, 8, 8)
+        label_embedding = self.embedding(label).view(-1, 1, 8, 8)
         comb_latent_vector = torch.concat((latent_vector, label_embedding), dim = 1)
         output = self.conv_model(comb_latent_vector)
         return output

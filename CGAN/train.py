@@ -36,20 +36,19 @@ training_plot_save_path = args.TRAINING_PLOT_PATH
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 image_size = 64
-lr = 10e-4
+lr = 0.0002
 beta1 = 0.5
 batch_size = 64
 noise_dim = 100
 workers = 2
-num_epochs = 50
+num_epochs = 5
 real_label = 1.0
 fake_label = 0.0
-classes = 5
+classes = 10
 # Monitor Progress
 progress = list()
-fixed_noise = torch.randn(batch_size, noise_dim, device=device)
-fixed_labels = torch.randint(0, classes, (batch_size, ), device=device)
-
+fixed_noise = torch.randn(100, noise_dim, device=device)
+fixed_labels = torch.Tensor([[i]*10 for i in range(10)]).view(100,).int().to(device)
 
 disc_net = Discriminator()
 gen_net = Generator()
@@ -76,7 +75,7 @@ dataloader = data.DataLoader(
 )
 
 
-criterion = nn.MSELoss()
+criterion = nn.BCELoss()
 
 disc_optimizer = optim.Adam(disc_net.parameters(), lr=lr, betas=(beta1, 0.999))
 gen_optimizer = optim.Adam(gen_net.parameters(), lr=lr, betas=(beta1, 0.999))
@@ -92,49 +91,43 @@ iters = 0
 print("Starting Training Loop...")
 for epoch in range(num_epochs):
     for i, data in enumerate(dataloader, 0):
-
-        # Training the discriminator
-        # 1.a: Train Discriminator on Real Images
-        # 1.b: Train Generator on Fake Images
-        disc_net.zero_grad()
-
         real_images = data[0].to(device)
-        # Conditional Noise
         real_labels = data[1].to(device)
         num_images = real_images.size(0)
-        label = torch.full((num_images,), real_label, dtype=torch.float, device=device)
+        
+        real_target = torch.ones(num_images,).to(device)
+        fake_target = torch.zeros(num_images,).to(device)
+        
+        # Training the discriminator
+        # Train Discriminator on Real Images and Fake Images
+        disc_net.zero_grad()
 
-        output = disc_net(real_images, real_labels).view(-1)
-
-        disc_err_real = criterion(output, label)
-        disc_err_real.backward()
-
-        noise = torch.randn(num_images, noise_dim, device=device)
+        real_output = disc_net(real_images, real_labels).view(-1)
+        disc_err_real = criterion(real_output, real_target)
+        
         # Conditional Noise
+        noise = torch.randn(num_images, noise_dim, device=device)
         noise_labels = torch.randint(0, classes, (num_images, ), device=device)
+
         fake = gen_net(noise, noise_labels)
-        label.fill_(fake_label)
 
-        output = disc_net(fake.detach(), noise_labels).view(-1)
+        fake_output = disc_net(fake.detach(), noise_labels).view(-1)
+        disc_err_fake = criterion(fake_output, fake_target)
 
-        disc_err_fake = criterion(output, label)
-        disc_err_fake.backward()
-
-        disc_err = disc_err_real + disc_err_fake
+        disc_err = (disc_err_real + disc_err_fake)/2
+        disc_err.backward()
         disc_optimizer.step()
 
         # Training the Generator
         # Steps:
-        # 1. Create Label Array all elements == 1
-        # 2. Get Discriminator Predictions on Fake Images
-        # 3. Calculate loss
+        # 1. Get Discriminator Predictions on Fake Images
+        # 2. Calculate loss
         gen_net.zero_grad()
-        label.fill_(real_label)
+        
         output = disc_net(fake, noise_labels).view(-1)
 
-        gen_err = criterion(output, label)
+        gen_err = criterion(output, real_target)
         gen_err.backward()
-
         gen_optimizer.step()
 
         # Training Update
@@ -148,12 +141,12 @@ for epoch in range(num_epochs):
         D_losses.append(disc_err.item())
 
         # Tracking Generator Progress
-        if (iters % 500 == 0) or (
+        if (iters % 10 == 0) or (
             (epoch == num_epochs - 1) and (i == len(dataloader) - 1)
         ):
             with torch.no_grad():
                 fake = gen_net(fixed_noise, fixed_labels).detach().cpu()
-            progress.append(torch_utils.make_grid(fake, padding=2, normalize=True))
+            progress.append(torch_utils.make_grid(fake, padding=2, nrow=10, normalize=True))
 
         iters += 1
 
@@ -176,6 +169,6 @@ fig2 = plt.figure(figsize=(8, 8))
 plt.axis("off")
 ims = [[plt.imshow(np.transpose(i, (1, 2, 0)), animated=True)] for i in progress]
 anim = animation.ArtistAnimation(fig2, ims, interval=1000, repeat_delay=1000, blit=True)
-writervideo = animation.FFMpegWriter(fps=60)
+writervideo = animation.FFMpegWriter(fps=5)
 anim.save(animation_save_path, writer=writervideo)
 plt.close()

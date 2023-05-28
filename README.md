@@ -85,7 +85,7 @@ The CGAN framework introduces the concept of "conditional" in the GAN architectu
 
 The original research paper, "Conditional Generative Adversarial Nets" by Mehdi Mirza and Simon Osindero can be found at the following link: [CGAN Research Paper](https://arxiv.org/abs/1411.1784)
 
-> Training Output Pending
+**CGAN Training Results: (Hindi-MNIST Dataset was used for training) - 5 epochs**
 ## WGAN
 
 <img src="assets/images/WGAN.png"/>

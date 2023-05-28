@@ -8,9 +8,8 @@ class Discriminator(nn.Module):
         self.classes = classes
 
         self.embedding = nn.Sequential(
-            nn.Embedding(classes, 64),
-            nn.Linear(64, 64*64),
-            nn.Unflatten(1, (1, 64, 64))
+            nn.Embedding(classes, 100),
+            nn.Linear(100, 1*64*64)
         )
 
         conv_1 = self.conv_block(4, 64)
@@ -23,9 +22,13 @@ class Discriminator(nn.Module):
             conv_2,
             conv_3,
             conv_4,
-            nn.Conv2d(512, 16, (3, 3), 1, 1),
+            nn.Conv2d(512, 1024, (5, 5), 2, 1),
+            nn.BatchNorm2d(1024),
+            nn.LeakyReLU(0.2, inplace=True),
             nn.Flatten(),
-            nn.Linear(256, 1)
+            nn.Dropout(0.4),
+            nn.Linear(1024, 1),
+            nn.Sigmoid()
         )
 
     def conv_block(self, in_channels, out_channels):
@@ -36,7 +39,7 @@ class Discriminator(nn.Module):
         )
     
     def forward(self, x, label):
-        label_embedding = self.embedding(label)
+        label_embedding = self.embedding(label).view(-1, 1, 64, 64)
         comb_latent_vector = torch.concat((x, label_embedding), dim=1)
         output = self.classifier(comb_latent_vector)
         return output
