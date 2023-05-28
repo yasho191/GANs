@@ -42,8 +42,6 @@ batch_size = 64
 noise_dim = 100
 workers = 2
 num_epochs = 5
-real_label = 1.0
-fake_label = 0.0
 classes = 10
 # Monitor Progress
 progress = list()

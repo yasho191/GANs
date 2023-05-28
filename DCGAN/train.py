@@ -42,8 +42,6 @@ batch_size = 64
 noise_dim = 100
 workers = 2
 num_epochs = 50
-real_label = 1.0
-fake_label = 0.0
 # Monitor Progress
 progress = list()
 fixed_noise = torch.randn(batch_size, noise_dim, 1, 1, device=device)
@@ -103,14 +101,14 @@ for epoch in range(num_epochs):
         # 1.b: Train Generator on Fake Images
         disc_net.zero_grad()
 
-        output = disc_net(real_images).view(-1)
-        disc_err_real = criterion(output, real_target)
+        real_output = disc_net(real_images).view(-1)
+        disc_err_real = criterion(real_output, real_target)
         disc_err_real.backward()
 
         fake_images = gen_net(noise)
 
-        output = disc_net(fake_images.detach()).view(-1)
-        disc_err_fake = criterion(output, fake_target)
+        fake_output = disc_net(fake_images.detach()).view(-1)
+        disc_err_fake = criterion(fake_output, fake_target)
         disc_err_fake.backward()
 
         disc_err = disc_err_real + disc_err_fake

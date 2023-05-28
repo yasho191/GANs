@@ -42,8 +42,6 @@ batch_size = 64
 noise_dim = 100
 workers = 2
 num_epochs = 50
-real_label = 1.0
-fake_label = 0.0
 # Number of discriminator updates for 1 generator update
 n_critic = 5
 # Clip value
