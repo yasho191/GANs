@@ -120,7 +120,7 @@ for epoch in range(num_epochs):
         gen_net.zero_grad()
         gen_images = gen_net(noise)
 
-        output = disc_net(gen_images).view(-1)
+        output = disc_net(gen_images.detach()).view(-1)
         gen_err = gen_loss(output)
 
         gen_err.backward()
