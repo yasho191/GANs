@@ -9,7 +9,7 @@ import torchvision.transforms as transforms
 import torchvision.utils as torch_utils
 from discriminator import Discriminator
 from generator import Generator
-from utils import weights_init
+from utils import weights_init, disc_loss, gen_loss
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -73,14 +73,6 @@ dataset = datasets.ImageFolder(
 dataloader = data.DataLoader(
     dataset, batch_size=batch_size, shuffle=True, num_workers=workers
 )
-
-# Loss for discriminator
-def disc_loss(real, fake):
-    return torch.mean(fake) - torch.mean(real)
-
-# Loss for generator
-def gen_loss(fake):
-    return -1.*torch.mean(fake)
 
 disc_optimizer = optim.RMSprop(disc_net.parameters(), lr=lr)
 gen_optimizer = optim.RMSprop(gen_net.parameters(), lr=lr)
