@@ -100,16 +100,26 @@ The WGAN paper introduces additional techniques, such as weight clipping and gra
 The original research paper, "Wasserstein GAN" by Martin Arjovsky, Soumith Chintala, Léon Bottou
 published in International Conference on Machine Learning (ICML), 2017 can be found here: [WGAN Research Paper](https://arxiv.org/abs/1701.07875)
 
-**WGAN Training Results: (Cartoon 100k Dataset was used for training) - 25 epochs**
+**WGAN Training Results: (Cartoon 100k Dataset was used for training) - 30 epochs**
 
 https://github.com/yasho191/GANs/assets/54347711/76baa0c1-c0e7-4076-88ae-29df84d59d76
 
+## WGAN-GP
+
+<img src="assets/images/WGANGP.png"/>
+
+Wasserstein Generative Adversarial Network with Gradient Penalty (WGAN-GP) is an extension of the original WGAN framework, proposed by Ishaan Gulrajani et al. in their research paper titled "Improved Training of Wasserstein GANs" (2017). In the original WGAN, the Wasserstein distance is used as a metric to guide the training of the generator and discriminator networks. WGAN-GP further improves upon this by introducing a gradient penalty term to address some of the issues faced in training GANs, such as mode collapse and instability.
+
+The official research paper "Improved Training of Wasserstein GANs" by Ishaan Gulrajani, Faruk Ahmed, Martin Arjovsky, Vincent Dumoulin, and Aaron C. Courville, published in Advances in Neural Information Processing Systems 30 (NIPS 2017) can be found here: [WGAN GP Research Paper](https://doi.org/10.48550/arXiv.1704.00028)
+
+**WGAN-GP Training Results: (Cartoon 100k Dataset was used for training) - 30 epochs**
+
 ## Upcoming GANS
 
-1. WGAN with Gradient Penalty (WGAN-GP)
-2. CycleGAN
-3. InfoGAN
-4. Style GAN
+1. CycleGAN
+2. InfoGAN
+3. Style GAN
+4. pix2pix
 
 ## License
 
