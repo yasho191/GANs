@@ -102,7 +102,7 @@ published in International Conference on Machine Learning (ICML), 2017 can be fo
 
 **WGAN Training Results: (Cartoon 100k Dataset was used for training) - 30 epochs**
 
-https://github.com/yasho191/GANs/assets/54347711/76baa0c1-c0e7-4076-88ae-29df84d59d76
+https://github.com/yasho191/GANs/assets/54347711/579172be-abe7-43f3-aa64-7164065baf65
 
 ## WGAN-GP
 
@@ -113,6 +113,8 @@ Wasserstein Generative Adversarial Network with Gradient Penalty (WGAN-GP) is an
 The official research paper "Improved Training of Wasserstein GANs" by Ishaan Gulrajani, Faruk Ahmed, Martin Arjovsky, Vincent Dumoulin, and Aaron C. Courville, published in Advances in Neural Information Processing Systems 30 (NIPS 2017) can be found here: [WGAN GP Research Paper](https://doi.org/10.48550/arXiv.1704.00028)
 
 **WGAN-GP Training Results: (Cartoon 100k Dataset was used for training) - 30 epochs**
+
+https://github.com/yasho191/GANs/assets/54347711/d80ac0b9-7ced-4a58-9222-3c8b12d53f8c
 
 ## Upcoming GANS
 
