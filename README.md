@@ -118,10 +118,10 @@ https://github.com/yasho191/GANs/assets/54347711/d80ac0b9-7ced-4a58-9222-3c8b12d
 
 ## Upcoming GANS
 
-1. CycleGAN
+1. pix2pix
 2. InfoGAN
 3. Style GAN
-4. pix2pix
+4. CycleGAN
 
 ## License
 
